@@ -1,0 +1,37 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Closest wins Storage v0.1.0 - Database
+
+Parameters:
+  Branch:
+    Description: branch name
+    Type: String
+
+Resources:
+  QuestionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub Closestwins-Questions-${Branch}
+      AttributeDefinitions:
+        - AttributeName: question_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: question_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  AnswersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub Closestwins-Answers-${Branch}
+      AttributeDefinitions:
+        - AttributeName: answer_id
+          AttributeType: S
+        - AttributeName: question_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: question_id
+          KeyType: HASH
+        - AttributeName: answer_id
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST

@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 
 [dev-packages]
+yamllint = "*"
+cfn-lint = "*"
 
 [requires]
 python_version = "3.9"
