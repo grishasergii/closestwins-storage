@@ -16,7 +16,7 @@ jobs:
       - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.1.4
         with:
           stack-name: closestwins-storage
-          path: templates
+          path: ./templates/
           main-template: closestwins-storage.cfn
           branch: test
           artifacts-bucket: ${{ secrets.AWS_CLOSESTWINS_ARTIFACTS_BUCKET }}
