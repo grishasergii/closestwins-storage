@@ -1,0 +1,20 @@
+name: Provision cloudformation stack
+
+on: workflow_dispatch
+
+jobs:
+  provision:
+    - uses: actions/checkout@v2
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_CLOSESTWINS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_CLOSESTWINS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_CLOSESTWINS_REGION }}
+    - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.1.0
+      with:
+        stack-name: closestwins-storage
+        path: tempaltes
+        main-template: closestwins-storage.cfn
+        branch: test
+        artifacts-bucket: ${{ secrets.AWS_CLOSESTWINS_ARTIFACTS_BUCKET }}
+        cfn-bucket: ${{ secrets.AWS_CLOSESTWINS_CFN_BUCKET }}
