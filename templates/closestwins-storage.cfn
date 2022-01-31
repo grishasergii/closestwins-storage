@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Closest wins Storage v0.1.0
+Description: Closest wins Storage v0.1.1
 
 Parameters:
   CfnBucketUrl:
