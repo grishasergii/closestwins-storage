@@ -15,9 +15,9 @@ jobs:
           aws-region: ${{ secrets.AWS_CLOSESTWINS_REGION }}
       - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.1.6
         with:
-          stack-name: closestwins-storage
+          stack_name: closestwins-storage
           path: ./templates/
-          main-template: closestwins-storage.cfn
+          main_template: closestwins-storage.cfn
           branch: test
-          artifacts-bucket: ${{ secrets.AWS_CLOSESTWINS_ARTIFACTS_BUCKET }}
-          cfn-bucket: ${{ secrets.AWS_CLOSESTWINS_CFN_BUCKET }}
+          artifacts_bucket: ${{ secrets.AWS_CLOSESTWINS_ARTIFACTS_BUCKET }}
+          cfn_bucket: ${{ secrets.AWS_CLOSESTWINS_CFN_BUCKET }}
