@@ -1,0 +1,51 @@
+name: PR validate
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cloudformation-linter:
+    name: Lint Cloudformation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: scottbrenner/cfn-lint-action@master
+        with:
+          args: templates/*.cfn
+      - uses: stelligent/cfn_nag@master
+        with:
+          input_path: templates/*.cfn
+          extra_args: --fail-on-warnings
+
+  yaml-linter:
+    name: Lint YAML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ibiqlik/action-yamllint@v3.0.0
+        with:
+          file_or_dir: templates/
+
+  provision-pr-stack:
+    name: Provision PR stack
+    needs:
+      - cloudformation-linter
+      - yaml-lilnter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_CLOSESTWINS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_CLOSESTWINS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_CLOSESTWINS_REGION }}
+      - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.2.1
+        with:
+          stack_name: closestwins-storage
+          path: ./templates/
+          main_template: closestwins-storage.cfn
+          branch: pr-${{ github.event.number }}
+          artifacts_bucket: ${{ secrets.AWS_CLOSESTWINS_ARTIFACTS_BUCKET }}
+          cfn_bucket: ${{ secrets.AWS_CLOSESTWINS_CFN_BUCKET }}
+          cfn_aws_region: ${{ secrets.AWS_CLOSESTWINS_REGION }}

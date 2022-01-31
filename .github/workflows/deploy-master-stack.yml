@@ -1,11 +1,15 @@
-name: Provision cloudformation stack
-
-on: workflow_dispatch
+name: Deploy master stack
+on:
+  release:
+    types:
+      - created
 
 jobs:
-  provision:
-    name: Provision
+  provision-master-stack:
+    name: Provision master stack
     runs-on: ubuntu-latest
+    env:
+      BRANCH: master
     steps:
       - uses: actions/checkout@v2
       - uses: aws-actions/configure-aws-credentials@v1
@@ -16,9 +20,9 @@ jobs:
       - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.2.1
         with:
           stack_name: closestwins-storage
+          branch: master
           path: ./templates/
           main_template: closestwins-storage.cfn
-          branch: test
           artifacts_bucket: ${{ secrets.AWS_CLOSESTWINS_ARTIFACTS_BUCKET }}
           cfn_bucket: ${{ secrets.AWS_CLOSESTWINS_CFN_BUCKET }}
           cfn_aws_region: ${{ secrets.AWS_CLOSESTWINS_REGION }}
