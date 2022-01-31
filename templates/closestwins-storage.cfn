@@ -3,6 +3,9 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Closest wins Storage v0.1.0
 
 Parameters:
+  CfnBucketUrl:
+    Description: S3 bucket url with cfn templates without trailing slash
+    Type: String
   Branch:
     Description: branch name
     Type: String
@@ -11,7 +14,7 @@ Resources:
   DatabaseStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://closestwins-cfn-templates.s3.eu-west-1.amazonaws.com/closestwins-storage/${Branch}/database.cfn"
+      TemplateURL: !Sub "https://${CfnBucketUrl}/closestwins-storage/${Branch}/database.cfn"
       TimeoutInMinutes: 10
       Parameters:
         Branch: !Ref Branch
