@@ -13,7 +13,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_CLOSESTWINS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_CLOSESTWINS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_CLOSESTWINS_REGION }}
-      - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.1.5
+      - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.1.6
         with:
           stack-name: closestwins-storage
           path: ./templates/
