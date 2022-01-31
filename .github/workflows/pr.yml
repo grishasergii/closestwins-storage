@@ -31,7 +31,7 @@ jobs:
     name: Provision PR stack
     needs:
       - cloudformation-linter
-      - yaml-lilnter
+      - yaml-linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
