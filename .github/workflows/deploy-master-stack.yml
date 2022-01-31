@@ -1,15 +1,13 @@
 name: Deploy master stack
 on:
-  release:
-    types:
-      - created
+  push:
+    branches:
+      - master
 
 jobs:
   provision-master-stack:
     name: Provision master stack
     runs-on: ubuntu-latest
-    env:
-      BRANCH: master
     steps:
       - uses: actions/checkout@v2
       - uses: aws-actions/configure-aws-credentials@v1
