@@ -35,3 +35,13 @@ Resources:
         - AttributeName: answer_id
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
+
+Outputs:
+  QuestionsTableArn:
+    Value: !GetAtt QuestionsTable.Arn
+  QuestionsTableName:
+    Value: !Ref QuestionsTable
+  AnswersTableArn:
+    Value: !GetAtt AnswersTable.Arn
+  AnswersTableName:
+    Value: !Ref AnswersTable
