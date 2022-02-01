@@ -9,6 +9,10 @@ Parameters:
   Branch:
     Description: branch name
     Type: String
+  Environment:
+    Description: stack environment
+    Type: String
+    Default: prod
 
 Resources:
   DatabaseStack:
@@ -18,3 +22,21 @@ Resources:
       TimeoutInMinutes: 10
       Parameters:
         Branch: !Ref Branch
+
+Outputs:
+  QuestionsTableArn:
+    Value: !GetAtt DatabaseStack.Outputs.QuestionsTableArn
+    Export:
+      Name: !Sub "closestwins-storage-QuestionsTableArn-${Environment}-${Branch}-${AWS::Region}"
+  QuestionsTableName:
+    Value: !GetAtt DatabaseStack.Outputs.QuestionsTableName
+    Export:
+      Name: !Sub "closestwins-storage-QuestionsTableName-${Environment}-${Branch}-${AWS::Region}"
+  AnswersTableArn:
+    Value: !GetAtt DatabaseStack.Outputs.AnswersTableArn
+    Export:
+      Name: !Sub "closestwins-storage-AnswersTableArn-${Environment}-${Branch}-${AWS::Region}"
+  AnswersTableName:
+    Value: !GetAtt DatabaseStack.Outputs.AnswersTableName
+    Export:
+      Name: !Sub "closestwins-storage-AnswersTableName-${Environment}-${Branch}-${AWS::Region}"
