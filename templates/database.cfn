@@ -36,6 +36,61 @@ Resources:
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
 
+  RoomAnswersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub Closestwins-RoomAnswers-${Branch}
+      AttributeDefinitions:
+        - AttributeName: room_id
+          AttributeType: S
+        - AttributeName: answer_id
+          AttributeType: S
+        - AttributeName: round_number
+          AttributeType: N
+      KeySchema:
+        - AttributeName: room_id
+          KeyType: HASH
+        - AttributeName: answer_id
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: round_number_index
+          KeySchema:
+            - AttributeName: room_id
+              KeyType: HASH
+            - AttributeName: round_number
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      BillingMode: PAY_PER_REQUEST
+
+  ConnectionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub Closestwins-Connections-${Branch}
+      AttributeDefinitions:
+        - AttributeName: connection_id
+          AttributeType: S
+        - AttributeName: room_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: room_id
+          KeyType: HASH
+        - AttributeName: connection_id
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+
+  RoomsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub Closestwins-Rooms-${Branch}
+      AttributeDefinitions:
+        - AttributeName: room_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: room_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
 Outputs:
   QuestionsTableArn:
     Value: !GetAtt QuestionsTable.Arn
@@ -45,3 +100,15 @@ Outputs:
     Value: !GetAtt AnswersTable.Arn
   AnswersTableName:
     Value: !Ref AnswersTable
+  RoomAnswersTableArn:
+    Value: !GetAtt RoomAnswersTable.Arn
+  RoomAnswersTableName:
+    Value: !Ref RoomAnswersTable
+  ConnectionsTableArn:
+    Value: !GetAtt ConnectionsTable.Arn
+  ConnectionsTableName:
+    Value: !Ref ConnectionsTable
+  RoomsTableArn:
+    Value: !GetAtt RoomsTable.Arn
+  RoomsTableName:
+    Value: !Ref RoomsTable
