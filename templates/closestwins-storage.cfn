@@ -32,6 +32,7 @@ Outputs:
     Value: !GetAtt DatabaseStack.Outputs.QuestionsTableName
     Export:
       Name: !Sub "closestwins-storage-QuestionsTableName-${Environment}-${Branch}-${AWS::Region}"
+
   AnswersTableArn:
     Value: !GetAtt DatabaseStack.Outputs.AnswersTableArn
     Export:
@@ -40,3 +41,31 @@ Outputs:
     Value: !GetAtt DatabaseStack.Outputs.AnswersTableName
     Export:
       Name: !Sub "closestwins-storage-AnswersTableName-${Environment}-${Branch}-${AWS::Region}"
+
+  RoomAnswersTableArn:
+    Value: !GetAtt DatabaseStack.Outputs.RoomAnswersTableArn
+    Export:
+      Name: !Sub "closestwins-storage-RoomAnswersTableArn-${Environment}-${Branch}-${AWS::Region}"
+  RoomAnswersTableName:
+    Value: !GetAtt DatabaseStack.Outputs.RoomAnswersTableName
+    Export:
+      Name: !Sub "closestwins-storage-RoomAnswersTableName-${Environment}-${Branch}-${AWS::Region}"
+
+  ConnectionsTableArn:
+    Value: !GetAtt DatabaseStack.Outputs.ConnectionsTableArn
+    Export:
+      Name: !Sub "closestwins-storage-ConnectionsTableArn-${Environment}-${Branch}-${AWS::Region}"
+  ConnectionsTableName:
+    Value: !GetAtt DatabaseStack.Outputs.ConnectionsTableName
+    Export:
+      Name: !Sub "closestwins-storage-ConnectionsTableName-${Environment}-${Branch}-${AWS::Region}"
+
+  RoomsTableArn:
+    Value: !GetAtt DatabaseStack.Outputs.RoomsTableArn
+    Export:
+      Name: !Sub "closestwins-storage-RoomsTableArn-${Environment}-${Branch}-${AWS::Region}"
+  RoomsTableName:
+    Value: !GetAtt DatabaseStack.Outputs.RoomsTableName
+    Export:
+      Name: !Sub "closestwins-storage-RoomsTableName-${Environment}-${Branch}-${AWS::Region}"
+
