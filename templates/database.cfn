@@ -82,7 +82,8 @@ Resources:
           KeySchema:
             - AttributeName: connection_id
               KeyType: HASH
-          ProjectionType: KEYS_ONLY
+          Projection:
+            ProjectionType: KEYS_ONLY
       BillingMode: PAY_PER_REQUEST
 
   RoomsTable:
