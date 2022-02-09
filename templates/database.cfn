@@ -39,7 +39,7 @@ Resources:
   RoomAnswersTableV2:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub Closestwins-RoomAnswers-${Branch}
+      TableName: !Sub Closestwins-RoomAnswers-${Branch}-V2
       AttributeDefinitions:
         - AttributeName: room_id
           AttributeType: S
