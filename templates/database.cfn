@@ -36,31 +36,20 @@ Resources:
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
 
-  RoomAnswersTable:
+  RoomAnswersTableV2:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub Closestwins-RoomAnswers-${Branch}
       AttributeDefinitions:
         - AttributeName: room_id
           AttributeType: S
-        - AttributeName: answer_id
+        - AttributeName: question_id
           AttributeType: S
-        - AttributeName: round_number
-          AttributeType: N
       KeySchema:
         - AttributeName: room_id
           KeyType: HASH
-        - AttributeName: answer_id
+        - AttributeName: question_id
           KeyType: RANGE
-      GlobalSecondaryIndexes:
-        - IndexName: round_number_index
-          KeySchema:
-            - AttributeName: room_id
-              KeyType: HASH
-            - AttributeName: round_number
-              KeyType: RANGE
-          Projection:
-            ProjectionType: ALL
       BillingMode: PAY_PER_REQUEST
 
   ConnectionsTable:
@@ -108,9 +97,9 @@ Outputs:
   AnswersTableName:
     Value: !Ref AnswersTable
   RoomAnswersTableArn:
-    Value: !GetAtt RoomAnswersTable.Arn
+    Value: !GetAtt RoomAnswersTableV2.Arn
   RoomAnswersTableName:
-    Value: !Ref RoomAnswersTable
+    Value: !Ref RoomAnswersTableV2
   ConnectionsTableArn:
     Value: !GetAtt ConnectionsTable.Arn
   ConnectionsTableName:
