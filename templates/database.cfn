@@ -67,7 +67,7 @@ Resources:
         - AttributeName: connection_id
           KeyType: RANGE
       GlobalSecondaryIndexes:
-        - IndexName: connection_id_index
+        - IndexName: connection_id_index_v2
           KeySchema:
             - AttributeName: connection_id
               KeyType: HASH
