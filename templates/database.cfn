@@ -45,11 +45,24 @@ Resources:
           AttributeType: S
         - AttributeName: answer_id
           AttributeType: S
+        - AttributeName: question_id
+          AttributeType: S
       KeySchema:
         - AttributeName: room_id
           KeyType: HASH
         - AttributeName: answer_id
           KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: question_id_index
+          KeySchema:
+            - AttributeName: room_id
+              KeyType: HASH
+            - AttributeName: question_id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: INCLUDE
+            NonKeyAttributes:
+              - connection_id
       BillingMode: PAY_PER_REQUEST
 
   ConnectionsTable:
