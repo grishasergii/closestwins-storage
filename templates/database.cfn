@@ -45,7 +45,7 @@ Resources:
           AttributeType: S
         - AttributeName: answer_id
           AttributeType: S
-        - AttributeName: connection_id
+        - AttributeName: question_id
           AttributeType: S
       KeySchema:
         - AttributeName: room_id
