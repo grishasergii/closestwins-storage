@@ -21,6 +21,7 @@ Resources:
       TimeoutInMinutes: 10
       Parameters:
         Branch: !Ref Branch
+        Environment: !Ref Environment
 
 Outputs:
   QuestionsTableArn:
