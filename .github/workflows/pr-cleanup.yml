@@ -8,7 +8,7 @@ jobs:
     name: Delete PR stack
     runs-on: ubuntu-latest
     env:
-      STACK_NAME: closestwins-storage-pr-${{ github.event.number }}
+      STACK_NAME: closestwins-storage-testing-pr-${{ github.event.number }}
     steps:
       - uses: aws-actions/configure-aws-credentials@v1
         with:

@@ -6,12 +6,15 @@ Parameters:
   Branch:
     Description: branch name
     Type: String
+  Environment:
+    Description: stack environment
+    Type: String
 
 Resources:
   QuestionsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub Closestwins-Questions-${Branch}
+      TableName: !Sub Closestwins-Questions-${Environment}-${Branch}
       AttributeDefinitions:
         - AttributeName: question_id
           AttributeType: S
@@ -23,7 +26,7 @@ Resources:
   AnswersTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub Closestwins-Answers-${Branch}
+      TableName: !Sub Closestwins-Answers-${Environment}-${Branch}
       AttributeDefinitions:
         - AttributeName: answer_id
           AttributeType: S
@@ -39,7 +42,7 @@ Resources:
   RoomAnswersTableV3:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub Closestwins-RoomAnswers-${Branch}-V3
+      TableName: !Sub Closestwins-RoomAnswers-${Environment}-${Branch}-V3
       AttributeDefinitions:
         - AttributeName: room_id
           AttributeType: S
@@ -68,7 +71,7 @@ Resources:
   ConnectionsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub Closestwins-Connections-${Branch}
+      TableName: !Sub Closestwins-Connections-${Environment}-${Branch}
       AttributeDefinitions:
         - AttributeName: connection_id
           AttributeType: S
@@ -91,7 +94,7 @@ Resources:
   RoomsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub Closestwins-Rooms-${Branch}
+      TableName: !Sub Closestwins-Rooms-${Environment}-${Branch}
       AttributeDefinitions:
         - AttributeName: room_id
           AttributeType: S
