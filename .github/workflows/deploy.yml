@@ -1,0 +1,45 @@
+name: Deploy
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: "A branch passed from the caller workflow"
+        required: true
+        type: string
+      environment:
+        description: "An environment passed from the caller workflow"
+        required: true
+        type: string
+    secrets:
+      aws_access_key_id:
+        required: true
+      aws_secret_access_key:
+        required: true
+      aws_region:
+        required: true
+      artifacts_bucket:
+        required: true
+      cfn_bucket:
+        required: true
+
+jobs:
+  provision-master-stack:
+    name: Provision stack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+          aws-region: ${{ secrets.aws_region }}
+      - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.3.4
+        with:
+          stack_name: closestwins-storage
+          branch: ${{ inputs.branch }}
+          environment: ${{ inputs.environment }}
+          path: ./templates/
+          main_template: closestwins-storage.cfn
+          artifacts_bucket: ${{ secrets.artifacts_bucket }}
+          cfn_bucket: ${{ secrets.cfn_bucket }}
+          cfn_aws_region: ${{ secrets.aws_region }}
