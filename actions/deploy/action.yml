@@ -1,5 +1,9 @@
 name: Deploy
 inputs:
+  working_directory:
+    description: "Working directory for the action"
+    default: .
+    type: string
   branch:
     description: "A branch passed from the caller workflow"
     required: true
@@ -25,6 +29,7 @@ runs:
   using: composite
   steps:
     - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.3.4
+      working-directory: ${{ inputs.working_directory }}
       with:
         stack_name: closestwins-storage
         branch: ${{ inputs.branch }}
