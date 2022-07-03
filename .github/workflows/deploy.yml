@@ -17,9 +17,9 @@ on:
         required: true
       aws_region:
         required: true
-      artifacts_bucket:
+      aws_artifacts_bucket:
         required: true
-      cfn_bucket:
+      aws_cfn_bucket:
         required: true
 
 jobs:
@@ -33,13 +33,10 @@ jobs:
           aws-access-key-id: ${{ secrets.aws_access_key_id }}
           aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
           aws-region: ${{ secrets.aws_region }}
-      - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.3.4
+      - uses: ./actions/deploy
         with:
-          stack_name: closestwins-storage
           branch: ${{ inputs.branch }}
           environment: ${{ inputs.environment }}
-          path: ./templates/
-          main_template: closestwins-storage.cfn
-          artifacts_bucket: ${{ secrets.artifacts_bucket }}
-          cfn_bucket: ${{ secrets.cfn_bucket }}
-          cfn_aws_region: ${{ secrets.aws_region }}
+          aws_artifacts_bucket: ${{ secrets.aws_artifacts_bucket }}
+          aws_cfn_bucket: ${{ secrets.aws_cfn_bucket }}
+          aws_region: ${{ secrets.aws_region }}

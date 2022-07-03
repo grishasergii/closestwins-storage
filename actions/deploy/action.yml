@@ -1,0 +1,36 @@
+name: Deploy
+inputs:
+  branch:
+    description: "A branch passed from the caller workflow"
+    required: true
+    type: string
+  environment:
+    description: "An environment passed from the caller workflow"
+    required: true
+    type: string
+  aws_artifacts_bucket:
+    description: "AWS artifacts bucket name"
+    required: true
+    type: string
+  aws_cfn_bucket:
+    description: "AWS cfn bucket name"
+    required: true
+    type: string
+  aws_region:
+    description: "AWS region name"
+    required: true
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - uses: grishasergii/aws-cloudformation-provision-gh-action@v0.3.4
+      with:
+        stack_name: closestwins-storage
+        branch: ${{ inputs.branch }}
+        environment: ${{ inputs.environment }}
+        path: ./templates/
+        main_template: closestwins-storage.cfn
+        artifacts_bucket: ${{ inputs.aws_artifacts_bucket }}
+        cfn_bucket: ${{ inputs.aws_cfn_bucket }}
+        cfn_aws_region: ${{ inputs.aws_region }}
